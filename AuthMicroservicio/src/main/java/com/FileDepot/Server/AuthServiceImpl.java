@@ -18,7 +18,16 @@ public class AuthServiceImpl extends UnicastRemoteObject implements AuthInterfac
     }
 
     @Override
-    public boolean register(String name, String email, String password, int number) throws RemoteException {
-        return operations.registerUser(name, email, password, number);
+    public boolean register(String name, String email, String password, long number) throws RemoteException {
+        System.out.println("→ Llamada al método register desde RMI");
+        System.out.println("  Nombre: " + name);
+        System.out.println("  Email: " + email);
+        System.out.println("  Teléfono: " + number);
+
+        boolean result = operations.registerUser(name, email, password, number);
+        System.out.println("  Resultado de registro: " + result);
+
+        return result;
     }
+
 }

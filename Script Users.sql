@@ -23,15 +23,16 @@ USE `user` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user`.`USUARIO` (
   `idUSUARIO` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,  -- Nuevo campo añadido
+  `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(200) NOT NULL,
   `password_hash` VARCHAR(200) NOT NULL,
   `created_at` DATETIME NOT NULL,
   `is_active` TINYINT NOT NULL,
-  `phone` BIGINT(10) NOT NULL,usuariousuariouser
+  `phone` BIGINT(10) NOT NULL,
   PRIMARY KEY (`idUSUARIO`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  UNIQUE INDEX `phone_UNIQUE` (`phone` ASC)
+)
 ENGINE = InnoDB;
 
 
