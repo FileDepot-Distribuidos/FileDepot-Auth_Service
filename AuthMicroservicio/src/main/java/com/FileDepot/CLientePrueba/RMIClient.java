@@ -12,7 +12,7 @@ public class RMIClient {
             AuthInterface authService = (AuthInterface) registry.lookup("AuthService");
             
             // Prueba de registro y login
-            boolean isRegistered = authService.register(
+            int isRegistered = authService.register(
                 "mm", "no@example.com", "ola como vas", 343424321
             );
             boolean isLoggedIn = authService.login("no@example.com", "ola como vas");
