@@ -36,36 +36,39 @@ public class DatabaseOperations {
 		return -1; // En caso de error
 	}
 
-	public boolean loginUser(String email, String password) {
-	    String sql = "SELECT password_hash FROM usuario WHERE email = ?";
-	    
-	    try (Connection conn = DatabaseConnection.getConnection();
-	         PreparedStatement stmt = conn.prepareStatement(sql)) {
-	        
-	        stmt.setString(1, email);
-	        ResultSet rs = stmt.executeQuery();
-	        
-	        if (rs.next()) {
-	            String passwordHashGuardado = rs.getString("password_hash");
-	            
-	            // Depuración: Imprime el hash para verificar
-	            System.out.println("Hash recuperado de BD: '" + passwordHashGuardado + "'");
-	            System.out.println("Longitud del hash: " + passwordHashGuardado.length());
-	            
-	            // Verifica que el hash sea válido
-	            if (passwordHashGuardado == null || !passwordHashGuardado.startsWith("$2a$")) {
-	                System.err.println("Error: Hash no válido en BD para el usuario " + email);
-	                return false;
-	            }
-	            
-	            // Compara la contraseña
-	            return BCrypt.checkpw(password, passwordHashGuardado);
-	        }
-	        return false; // Usuario no existe
-	        
-	    } catch (SQLException e) {
-	        System.err.println("Error en loginUser: " + e.getMessage());
-	        return false;
-	    }
+	public int loginUser(String email, String password) {
+		String sql = "SELECT idUsuario, password_hash FROM usuario WHERE email = ?";
+
+		try (Connection conn = DatabaseConnection.getConnection();
+			 PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				int userId = rs.getInt("idUsuario");
+				String passwordHashGuardado = rs.getString("password_hash");
+
+				System.out.println("Hash recuperado de BD: '" + passwordHashGuardado + "'");
+				System.out.println("Longitud del hash: " + passwordHashGuardado.length());
+
+				if (passwordHashGuardado == null || !passwordHashGuardado.startsWith("$2a$")) {
+					System.err.println("Error: Hash no válido en BD para el usuario " + email);
+					return -1;
+				}
+
+				if (BCrypt.checkpw(password, passwordHashGuardado)) {
+					return userId;
+				} else {
+					return -1; // Contraseña incorrecta
+				}
+			}
+			return -1; // Usuario no existe
+
+		} catch (SQLException e) {
+			System.err.println("Error en loginUser: " + e.getMessage());
+			return -1;
+		}
 	}
+
 }

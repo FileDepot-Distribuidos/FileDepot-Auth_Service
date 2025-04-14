@@ -15,10 +15,10 @@ public class RMIClient {
             int isRegistered = authService.register(
                 "mm", "no@example.com", "ola como vas", 343424321
             );
-            boolean isLoggedIn = authService.login("no@example.com", "ola como vas");
+//            boolean isLoggedIn = authService.login("no@example.com", "ola como vas");
             
-            System.out.println("Registro exitoso: " + isRegistered);
-            System.out.println("Login exitoso: " + isLoggedIn);
+//            System.out.println("Registro exitoso: " + isRegistered);
+//            System.out.println("Login exitoso: " + isLoggedIn);
         } catch (Exception e) {
             e.printStackTrace();
         }

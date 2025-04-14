@@ -13,7 +13,7 @@ public class AuthServiceImpl extends UnicastRemoteObject implements AuthInterfac
     }
 
     @Override
-    public boolean login(String email, String password) throws RemoteException {
+    public int login(String email, String password) throws RemoteException {
         return operations.loginUser(email, password);
     }
 
