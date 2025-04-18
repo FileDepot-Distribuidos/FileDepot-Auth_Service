@@ -71,4 +71,24 @@ public class DatabaseOperations {
 		}
 	}
 
+	public int getUserByEmail(String email) {
+		String sql = "SELECT idUSUARIO FROM usuario WHERE email = ?";
+
+		try (Connection conn = DatabaseConnection.getConnection();
+			 PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+                return rs.getInt("idUSUARIO");
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Error en getUserByEmail: " + e.getMessage());
+		}
+
+		return -1;
+	}
+
 }

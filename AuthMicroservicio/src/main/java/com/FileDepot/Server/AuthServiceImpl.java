@@ -30,4 +30,10 @@ public class AuthServiceImpl extends UnicastRemoteObject implements AuthInterfac
         return result;
     }
 
+    @Override
+    public int getUserByEmail(String email) throws RemoteException {
+        return operations.getUserByEmail(email);
+    }
+
+
 }
