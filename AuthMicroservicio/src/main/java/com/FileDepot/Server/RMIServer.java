@@ -17,8 +17,9 @@ public class RMIServer {
 			int port = ConfigLoader.getInt("RMI_PORT");
 			String serviceName = ConfigLoader.get("RMI_SERVICE_NAME");
 
-			Registry registry = LocateRegistry.createRegistry(port);
 			System.setProperty("java.rmi.server.hostname", host);
+
+			Registry registry = LocateRegistry.createRegistry(port);
 			registry.rebind(serviceName, authService);
 
 			System.out.println("Servidor RMI activo");
