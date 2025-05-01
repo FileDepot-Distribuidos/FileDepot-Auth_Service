@@ -30,10 +30,10 @@ public class DatabaseOperations {
 			}
 
 		} catch (SQLException e) {
-			System.err.println("❌ Error en registerUser: " + e.getMessage());
+			System.err.println("Error en registerUser: " + e.getMessage());
 		}
 
-		return -1; // En caso de error
+		return -1;
 	}
 
 	public int loginUser(String email, String password) {
@@ -60,11 +60,10 @@ public class DatabaseOperations {
 				if (BCrypt.checkpw(password, passwordHashGuardado)) {
 					return userId;
 				} else {
-					return -1; // Contraseña incorrecta
+					return -1;
 				}
 			}
-			return -1; // Usuario no existe
-
+			return -1;
 		} catch (SQLException e) {
 			System.err.println("Error en loginUser: " + e.getMessage());
 			return -1;
